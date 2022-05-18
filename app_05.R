@@ -46,9 +46,20 @@ server <- function(input, output, session) {
   })
 
   output$num_players <- renderText({
-
+    data <- players %>%
+      filter(VORP >= input$VORP,
+             Team %in% input$Team)
+    nrow(data)
   })
-
+  output$nba_plot <- renderPlot({
+    data <- players %>%
+      filter(VORP >= input$VORP,
+             Team %in% input$Team)
+    
+    ggplot(data, aes(Salary)) +
+      geom_histogram()
+  })
+  
   # Build the plot output here
 
 }
