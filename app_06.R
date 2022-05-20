@@ -59,7 +59,8 @@ server <- function(input, output, session) {
              Team %in% input$Team)
 
     ggplot(data, aes(Salary)) +
-      geom_histogram()
+      geom_histogram() +
+      theme_classic() + scale_x_log10(labels = scales::comma)
   })
 
 }
