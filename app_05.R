@@ -2,6 +2,7 @@ library(shiny)
 library(ggplot2)
 library(dplyr)
 library(DT)
+install.packages("DT")
 
 players <- read.csv("data/nba2018.csv")
 
@@ -37,7 +38,7 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
 
-  output$players_data <- renderTable({
+  output$players_data <- renderDT({
     data <- players %>%
       filter(VORP >= input$VORP,
              Team %in% input$Team)
@@ -51,6 +52,9 @@ server <- function(input, output, session) {
              Team %in% input$Team)
     nrow(data)
   })
+
+  
+  # Build the plot output here
   output$nba_plot <- renderPlot({
     data <- players %>%
       filter(VORP >= input$VORP,
@@ -60,8 +64,6 @@ server <- function(input, output, session) {
       geom_histogram()
   })
   
-  # Build the plot output here
-
 }
 
 shinyApp(ui, server)
