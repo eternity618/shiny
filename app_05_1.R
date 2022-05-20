@@ -37,9 +37,10 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
-  data <- players %>%
+  data <- reactive({players %>%
     filter(VORP >= input$VORP,
-           Team %in% input$Team)}
+           Team %in% input$Team)
+  })
   
   output$players_data <- renderDT({
     
