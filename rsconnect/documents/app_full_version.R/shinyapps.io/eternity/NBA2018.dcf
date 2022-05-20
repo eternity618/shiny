@@ -1,0 +1,14 @@
+name: NBA2018
+title: NBA2018
+username:
+account: eternity
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6339081
+bundleId: 5925595
+url: https://eternity.shinyapps.io/NBA2018/
+when: 1653020930.57489
+lastSyncTime: 1653020930.5749
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: app_01.R|app_01_sol.R|app_02.R|app_02_sol.R|app_03.R|app_03_sol.R|app_04.R|app_04_sol.R|app_05.R|app_05_1.R|app_05_sol.R|app_06.R|app_06_sol.R|app_07.R|app_07_sol.R|app_08.R|app_08_sol.R|app_09.R|app_09_sol.R|data/data_prep.R|data/nba2018_raw.csv|ddd.R|LICENSE|README.md|Shiny Workshop - ODSC 2019.pdf
