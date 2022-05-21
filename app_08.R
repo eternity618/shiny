@@ -22,7 +22,11 @@ ui <- fluidPage(
         unique(players$Team),
         selected = "Golden State Warriors",
         multiple = TRUE
-      )
+      ),
+      h3("Plot option"),
+      selectInput("variable","Variable", c("VORP", "Salary", "Age", "Height", "Weight"),"VORP"),
+      radioButtons("plot_type","Plot type",c("histogram","density"),"histogram",inline=T)
+      
     ),
     mainPanel(
       strong(
@@ -60,10 +64,16 @@ server <- function(input, output, session) {
   })
 
   output$nba_plot <- renderPlot({
-    ggplot(filtered_data(), aes(Salary)) +
-      geom_histogram() +
+     p<-ggplot(filtered_data(), aes_string(input$variable))+
       theme_classic() +
       scale_x_log10(labels = scales::comma)
+     
+    if (input$plot_type=="histogram"){
+      p+geom_histogram()
+    } else{
+      p+geom_density()
+    }
+  
   })
 
 }

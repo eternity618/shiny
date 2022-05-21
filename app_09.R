@@ -28,7 +28,10 @@ ui <- fluidPage(
       selectInput("variable", "Variable",
                   c("VORP", "Salary", "Age", "Height", "Weight"),
                   "Salary"),
-      radioButtons("plot_type", "Plot type", c("histogram", "density"))
+      radioButtons("plot_type", "Plot type", c("histogram", "density")),
+      checkboxInput("log", "Log scale", value = TRUE),
+      numericInput("size", "Font size", 16),
+      colourInput("col", "Line colour", "blue")
     ),
     mainPanel(
       strong(
@@ -67,17 +70,23 @@ server <- function(input, output, session) {
 
   output$nba_plot <- renderPlot({
     p <- ggplot(filtered_data(), aes_string(input$variable)) +
-      theme_classic() +
-      scale_x_log10(labels = scales::comma)
-
+      theme_classic(input$size)
+    
     if (input$plot_type == "histogram") {
-      p <- p + geom_histogram()
+      p <- p + geom_histogram(fill = input$col, colour = "black")
     } else if (input$plot_type == "density") {
-      p <- p + geom_density()
+      p <- p + geom_density(fill = input$col)
     }
+    
+    if (input$log) {
+      p <- p + scale_x_log10(labels = scales::comma)
+    } else {
+      p <- p + scale_x_continuous(labels = scales::comma)
+    }
+    
     p
   })
-
+  
 }
 
 shinyApp(ui, server)
